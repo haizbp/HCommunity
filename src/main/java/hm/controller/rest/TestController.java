@@ -11,16 +11,26 @@ import reactor.core.publisher.Mono;
 @ApiVersion(1)
 public class TestController {
 
-	@GetMapping
-	public Mono<String> test(WebSession session){
-		session.getAttributes().remove("test");
+	@GetMapping("/status")
+	public Mono<String> status(WebSession session){
+		return Mono.just("Ok! It's working fine...");
+	}
+	
+	@GetMapping("/addSession")
+	public Mono<String> addSession(WebSession session){
 		session.getAttributes().put("test", "Cache  save here!!");
 		return Mono.just("Ok!...");
 	}
 	
-	@GetMapping("/get")
-	public Mono<String> get(WebSession session){
+	@GetMapping("/getSession")
+	public Mono<String> getSession(WebSession session){
 		String s = (String) session.getAttributes().get("test");
+		return Mono.just(s);
+	}
+	
+	@GetMapping("/removeSession")
+	public Mono<String> removeSession(WebSession session){
+		String s = (String) session.getAttributes().remove("test");
 		return Mono.just(s);
 	}
 	

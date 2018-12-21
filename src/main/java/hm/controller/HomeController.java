@@ -13,12 +13,8 @@ import reactor.core.publisher.Mono;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private ReactiveMapSessionRepository reactiveMapSessionRepository;
-
 	@GetMapping("/")
 	public Mono<String> home(Model model, WebSession session) {
-		session.getAttributes().put("test", "ok");
 		return Mono.just("views/home");
 	}
 

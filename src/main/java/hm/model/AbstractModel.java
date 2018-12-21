@@ -1,4 +1,4 @@
-package hm.entity;
+package hm.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -13,30 +13,19 @@ import javax.persistence.MappedSuperclass;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-@MappedSuperclass
-public abstract class AbstractEntity implements Serializable {
+public abstract class AbstractModel implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column
 	private Long id;
 
-	@Column
-	@CreationTimestamp
 	private Timestamp createdDate;
 
-	@Column
-	@UpdateTimestamp
 	private Timestamp lastModified;
 
 	private Boolean disable;
 
-	public AbstractEntity() {
+	public AbstractModel() {
 		Timestamp current = new Timestamp(new Date().getTime());
 		lastModified = current;
 		disable = false;

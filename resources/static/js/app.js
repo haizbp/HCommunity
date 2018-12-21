@@ -1,5 +1,5 @@
-const TAGS_LISTING_APPI = "https://api.jsonbin.io/b/5c18a02a3362fb77058ef452/latest ";
-const CATS_LISTING_API = "https://api.jsonbin.io/b/5c18a5d433a8fe76ff4e5854/latest ";
+const TAGS_LISTING_APPI = "/v1/tag";
+const CATS_LISTING_API = "/v1/category";
 const VIEWMODE_LISTING_API = "https://api.jsonbin.io/b/5c18a80633a8fe76ff4e5a4a/latest ";
 const HEADER_NAV_LISTING_API = "https://api.jsonbin.io/b/5c19c613412d482eae511688/latest ";
 const ABOUT_US_API = "https://api.jsonbin.io/b/5c19cfc93f8bd92e4cbf0b07/latest ";
