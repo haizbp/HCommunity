@@ -1,21 +1,25 @@
 package hm.model;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import hm.entity.CategoryEntity;
+import hm.entity.CategoryPostEntity;
 import hm.entity.PostEntity;
+import hm.entity.TagPostEntity;
 
 public class PostModel extends AbstractModel {
 
 	private String bColor;
-	private String activity;
-	private String view;
-	private String reply;
+	private Integer activity;
+	private Integer view;
+	private Integer reply;
 	private String title;
 	private String content;
 	private UserModel user;
-	private List<TagModel> tags;
-	private List<CategoryModel> categories;
+	private Set<TagModel> tags;
+	private Set<CategoryModel> categories;
 
 	public String getbColor() {
 		return bColor;
@@ -25,27 +29,33 @@ public class PostModel extends AbstractModel {
 		this.bColor = bColor;
 	}
 
-	public String getActivity() {
+	public Integer getActivity() {
+		if(activity == null)
+			activity = 0;
 		return activity;
 	}
 
-	public void setActivity(String activity) {
+	public void setActivity(Integer activity) {
 		this.activity = activity;
 	}
 
-	public String getView() {
+	public Integer getView() {
+		if(view == null)
+			view = 0;
 		return view;
 	}
 
-	public void setView(String view) {
+	public void setView(Integer view) {
 		this.view = view;
 	}
 
-	public String getReply() {
+	public Integer getReply() {
+		if(reply == null)
+			reply = 0;
 		return reply;
 	}
 
-	public void setReply(String reply) {
+	public void setReply(Integer reply) {
 		this.reply = reply;
 	}
 
@@ -75,20 +85,32 @@ public class PostModel extends AbstractModel {
 
 	
 
-	public List<TagModel> getTags() {
+	public Set<TagModel> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<TagModel> tags) {
+	public void setTags(Set<TagModel> tags) {
 		this.tags = tags;
 	}
 
-	public List<CategoryModel> getCategories() {
+	public Set<CategoryModel> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<CategoryModel> categories) {
+	public void setCategories(Set<CategoryModel> categories) {
 		this.categories = categories;
+	}
+	
+	public void addCategory(CategoryModel model) {
+		if(categories == null)
+			categories = new HashSet<>();
+		this.categories.add(model);
+	}
+	
+	public void addTag(TagModel model) {
+		if(tags == null)
+			tags = new HashSet<>();
+		this.tags.add(model);
 	}
 
 	public static PostModel from(PostEntity entity) {

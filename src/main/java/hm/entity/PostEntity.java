@@ -11,10 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Indexed;
+
 import hm.model.PostModel;
 
 @Entity
 @Table(name = "post")
+@Indexed
 public class PostEntity extends AbstractEntity {
 	/**
 	 * 
@@ -23,11 +26,11 @@ public class PostEntity extends AbstractEntity {
 	@Column
 	private String bColor;
 	@Column
-	private String activity;
+	private Integer activity;
 	@Column
-	private String view;
+	private Integer view;
 	@Column
-	private String reply;
+	private Integer reply;
 	@Column
 	private String title;
 	@Column
@@ -48,27 +51,27 @@ public class PostEntity extends AbstractEntity {
 		this.bColor = bColor;
 	}
 
-	public String getActivity() {
+	public Integer getActivity() {
 		return activity;
 	}
 
-	public void setActivity(String activity) {
+	public void setActivity(Integer activity) {
 		this.activity = activity;
 	}
 
-	public String getView() {
+	public Integer getView() {
 		return view;
 	}
 
-	public void setView(String view) {
+	public void setView(Integer view) {
 		this.view = view;
 	}
 
-	public String getReply() {
+	public Integer getReply() {
 		return reply;
 	}
 
-	public void setReply(String reply) {
+	public void setReply(Integer reply) {
 		this.reply = reply;
 	}
 
@@ -95,7 +98,23 @@ public class PostEntity extends AbstractEntity {
 	public void setUser(UserEntity user) {
 		this.user = user;
 	}
-	
+
+	public Set<TagPostEntity> getTagPosts() {
+		return tagPosts;
+	}
+
+	public void setTagPosts(Set<TagPostEntity> tagPosts) {
+		this.tagPosts = tagPosts;
+	}
+
+	public Set<CategoryPostEntity> getCategoryPosts() {
+		return categoryPosts;
+	}
+
+	public void setCategoryPosts(Set<CategoryPostEntity> categoryPosts) {
+		this.categoryPosts = categoryPosts;
+	}
+
 	public static PostEntity from(PostModel model) {
 		PostEntity entity = new PostEntity();
 
