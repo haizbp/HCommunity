@@ -9,12 +9,14 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import hm.model.UserModel;
+
 @Entity
 @Table(name = "users")
 public class UserEntity extends AbstractEntity {
 
 	@Column
-	private String userame;
+	private String username;
 	@Column
 	private String password;
 	@Column
@@ -27,13 +29,23 @@ public class UserEntity extends AbstractEntity {
 	private String lastActivity;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<PostEntity> posts = new HashSet<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<NotificationEntity> notifications = new HashSet<>();
 
-	public String getUserame() {
-		return userame;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserame(String userame) {
-		this.userame = userame;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public Set<NotificationEntity> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(Set<NotificationEntity> notifications) {
+		this.notifications = notifications;
 	}
 
 	public String getPassword() {
@@ -82,6 +94,20 @@ public class UserEntity extends AbstractEntity {
 
 	public void setPosts(Set<PostEntity> posts) {
 		this.posts = posts;
+	}
+	
+	public static UserEntity from(UserModel model) {
+		UserEntity user = new UserEntity();
+		
+		user.setUsername(model.getUsername());
+		user.setImg(model.getImg());
+		user.setPosted(model.getPosted());
+		user.setThread(user.getThread());
+		user.setLastActivity(model.getLastActivity());
+		user.setDisable(model.getDisable());
+		user.setId(model.getId());
+		
+		return user;
 	}
 
 }

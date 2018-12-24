@@ -1,6 +1,11 @@
 package hm.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import hm.model.CategoryModel;
@@ -12,6 +17,8 @@ public class CategoryEntity extends AbstractEntity {
 	private String key;
 	private String value;
 	private String color;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+	private Set<CategoryPostEntity> categoryPosts = new HashSet<>();
 
 	public String getKey() {
 		return key;

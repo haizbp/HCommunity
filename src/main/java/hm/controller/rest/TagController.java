@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import hm.annotation.ApiVersion;
@@ -16,7 +17,8 @@ import hm.model.TagModel;
 import hm.service.TagService;
 import reactor.core.publisher.Mono;
 
-@RestController("/tag")
+@RestController
+@RequestMapping("/tag")
 @ApiVersion(1)
 public class TagController {
 

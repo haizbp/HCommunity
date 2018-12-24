@@ -17,7 +17,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.FileTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-import hm.annotation.ApiVersionHandler;
+import hm.annotation.CustomRequestMappingHandler;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
@@ -85,7 +85,7 @@ public class WebConfiguration extends WebFluxConfigurationSupport implements App
 	
 	@Autowired
 	public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-		return new ApiVersionHandler("/v");
+		return new CustomRequestMappingHandler("/v");
 	}
 
 }

@@ -36,43 +36,31 @@ public class CustomRequestMappingHandler extends RequestMappingHandlerMapping {
 
 		Controller controllerAnnotation = AnnotationUtils.findAnnotation(handlerType, Controller.class);
 		RestController restControllerAnnotation = AnnotationUtils.findAnnotation(handlerType, RestController.class);
-		String root = "";
-		String type = "Redirect";
-		
-		if (controllerAnnotation != null && !StringUtils.isEmpty(controllerAnnotation.value())) {
-			root = controllerAnnotation.value();
-		}
-
-		if (restControllerAnnotation != null && !StringUtils.isEmpty(restControllerAnnotation.value())) {
-			root = restControllerAnnotation.value();
-			type = "Rest API";
-		}
 
 		ApiVersion methodAnnotation = AnnotationUtils.findAnnotation(method, ApiVersion.class);
 		if (methodAnnotation != null) {
 			RequestCondition<?> methodCondition = getCustomMethodCondition(method);
 			// Concatenate our ApiVersion with the usual request mapping
-			info = createApiVersionInfo(methodAnnotation, methodCondition, root).combine(info);
+			info = createApiVersionInfo(methodAnnotation, methodCondition).combine(info);
 		} else {
 			ApiVersion typeAnnotation = AnnotationUtils.findAnnotation(handlerType, ApiVersion.class);
 			if (typeAnnotation != null) {
 				RequestCondition<?> typeCondition = getCustomTypeCondition(handlerType);
 				// Concatenate our ApiVersion with the usual request mapping
-				info = createApiVersionInfo(typeAnnotation, typeCondition, root).combine(info);
+				info = createApiVersionInfo(typeAnnotation, typeCondition).combine(info);
 			}
 		}
 
-		logger.info(type +": "+info.toString());
+		logger.info(info.toString());
 		
 		return info;
 	}
 
-	private RequestMappingInfo createApiVersionInfo(ApiVersion annotation, RequestCondition<?> customCondition,
-			String root) {
+	private RequestMappingInfo createApiVersionInfo(ApiVersion annotation, RequestCondition<?> customCondition) {
 		int[] values = annotation.value();
 		PathPattern[] patterns = new PathPattern[values.length];
 		for (int i = 0; i < values.length; i++) {
-			patterns[i] = getPathPatternParser().parse(prefix + values[i] + root);
+			patterns[i] = getPathPatternParser().parse(prefix + values[i]);
 
 		}
 		return new RequestMappingInfo(new PatternsRequestCondition(patterns), new RequestMethodsRequestCondition(),

@@ -1,6 +1,13 @@
 package hm.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import hm.model.TagModel;
@@ -12,6 +19,8 @@ public class TagEntity extends AbstractEntity {
 	private String key;
 	private String value;
 	private String color;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tag")
+	private Set<TagPostEntity> tagPosts = new HashSet<>();
 
 	public String getKey() {
 		return key;

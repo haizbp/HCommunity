@@ -1,11 +1,17 @@
 package hm.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import hm.model.PostModel;
 
 @Entity
 @Table(name = "post")
@@ -29,6 +35,10 @@ public class PostEntity extends AbstractEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
 	private UserEntity user;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+	private Set<TagPostEntity> tagPosts = new HashSet<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+	private Set<CategoryPostEntity> categoryPosts = new HashSet<>();
 
 	public String getbColor() {
 		return bColor;
@@ -84,6 +94,24 @@ public class PostEntity extends AbstractEntity {
 
 	public void setUser(UserEntity user) {
 		this.user = user;
+	}
+	
+	public static PostEntity from(PostModel model) {
+		PostEntity entity = new PostEntity();
+
+		entity.setActivity(model.getActivity());
+		entity.setbColor(model.getbColor());
+		entity.setContent(model.getContent());
+		entity.setCreatedDate(model.getCreatedDate());
+		entity.setDisable(model.getDisable());
+		entity.setId(model.getId());
+		entity.setLastModified(model.getLastModified());
+		entity.setReply(model.getReply());
+		entity.setTitle(model.getTitle());
+		entity.setUser(UserEntity.from(model.getUser()));
+		entity.setView(model.getView());
+
+		return entity;
 	}
 
 }

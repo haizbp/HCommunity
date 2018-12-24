@@ -1,38 +1,51 @@
 package hm.controller.rest;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.WebSession;
 
+import hm.Helper;
 import hm.annotation.ApiVersion;
+import hm.model.UserModel;
 import reactor.core.publisher.Mono;
 
-@RestController("/test")
+@RestController
+@RequestMapping("/test")
 @ApiVersion(1)
 public class TestController {
 
 	@GetMapping("/status")
-	public Mono<String> status(WebSession session){
+	public Mono<String> status(WebSession session) {
 		return Mono.just("Ok! It's working fine...");
 	}
-	
-	@GetMapping("/addSession")
-	public Mono<String> addSession(WebSession session){
-		session.getAttributes().put("test", "Cache  save here!!");
+
+	@GetMapping("/login")
+	public Mono<String> addSession(WebSession session) {
+		UserModel model = new UserModel();
+		model.setUsername("Haiz");
+		model.setImg("");
+		model.setPosted("123k");
+		model.setThread("12k");
+		model.setLastActivity("");
+		model.setDisable(false);
+		model.setId(1212L);
+
+		session.getAttributes().put(Helper.LOGIN_USER_KEY, model);
+
 		return Mono.just("Ok!...");
 	}
-	
+
 	@GetMapping("/getSession")
-	public Mono<String> getSession(WebSession session){
-		String s = (String) session.getAttributes().get("test");
-		return Mono.just(s);
+	public Mono<UserModel> getSession(WebSession session) {
+		UserModel model = (UserModel) session.getAttributes().get(Helper.LOGIN_USER_KEY);
+		return Mono.just(model);
 	}
-	
-	@GetMapping("/removeSession")
-	public Mono<String> removeSession(WebSession session){
-		String s = (String) session.getAttributes().remove("test");
-		return Mono.just(s);
+
+	@GetMapping("/logout")
+	public Mono<UserModel> removeSession(WebSession session) {
+		UserModel model = (UserModel) session.getAttributes().remove(Helper.LOGIN_USER_KEY);
+		return Mono.just(model);
 	}
-	
-	
+
 }

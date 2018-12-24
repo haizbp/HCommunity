@@ -13,41 +13,41 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hm.annotation.ApiVersion;
 import hm.model.CategoryModel;
+import hm.model.NotificationModel;
 import hm.model.Response;
-import hm.model.TagModel;
-import hm.service.CategoryService;
+import hm.service.NotificationService;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/notification")
 @ApiVersion(1)
-public class CategoryController {
+public class NotificationController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private NotificationService notificationService;
 
-	@GetMapping
-	public Mono<Response> get() {
-		Response response = new Response();
-		List<CategoryModel> models;
-		try {
-			models = categoryService.get();
-			response.setData(models);
-		} catch (Exception e) {
-			response.setData(new ArrayList<>());
-			response.setCode(500);
-			response.setMessage(e.getMessage());
-		}
-
-		return Mono.just(response);
-	}
+//	@GetMapping
+//	public Mono<Response> get() {
+//		Response response = new Response();
+//		List<CategoryModel> models;
+//		try {
+//			models = categoryService.get();
+//			response.setData(models);
+//		} catch (Exception e) {
+//			response.setData(new ArrayList<>());
+//			response.setCode(500);
+//			response.setMessage(e.getMessage());
+//		}
+//
+//		return Mono.just(response);
+//	}
 
 	@PostMapping
-	public Mono<Response> insert(@RequestBody CategoryModel model) {
+	public Mono<Response> insert(@RequestBody NotificationModel model) {
 		Response response = new Response();
 
 		try {
-			model = categoryService.save(model);
+			model = notificationService.save(model);
 			response.setData(model);
 		} catch (Exception e) {
 			response.setCode(500);
@@ -58,11 +58,11 @@ public class CategoryController {
 	}
 
 	@PutMapping
-	public Mono<Response> update(@RequestBody CategoryModel model) {
+	public Mono<Response> update(@RequestBody NotificationModel model) {
 		Response response = new Response();
 
 		try {
-			model = categoryService.save(model);
+			model = notificationService.save(model);
 			response.setData(model);
 		} catch (Exception e) {
 			response.setCode(500);

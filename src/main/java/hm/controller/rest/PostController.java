@@ -13,41 +13,43 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hm.annotation.ApiVersion;
 import hm.model.CategoryModel;
+import hm.model.NotificationModel;
+import hm.model.PostModel;
 import hm.model.Response;
-import hm.model.TagModel;
-import hm.service.CategoryService;
+import hm.service.NotificationService;
+import hm.service.PostService;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/post")
 @ApiVersion(1)
-public class CategoryController {
+public class PostController {
 
 	@Autowired
-	private CategoryService categoryService;
+	private PostService postService;
 
-	@GetMapping
-	public Mono<Response> get() {
-		Response response = new Response();
-		List<CategoryModel> models;
-		try {
-			models = categoryService.get();
-			response.setData(models);
-		} catch (Exception e) {
-			response.setData(new ArrayList<>());
-			response.setCode(500);
-			response.setMessage(e.getMessage());
-		}
-
-		return Mono.just(response);
-	}
+//	@GetMapping
+//	public Mono<Response> get() {
+//		Response response = new Response();
+//		List<CategoryModel> models;
+//		try {
+//			models = categoryService.get();
+//			response.setData(models);
+//		} catch (Exception e) {
+//			response.setData(new ArrayList<>());
+//			response.setCode(500);
+//			response.setMessage(e.getMessage());
+//		}
+//
+//		return Mono.just(response);
+//	}
 
 	@PostMapping
-	public Mono<Response> insert(@RequestBody CategoryModel model) {
+	public Mono<Response> insert(@RequestBody PostModel model) {
 		Response response = new Response();
 
 		try {
-			model = categoryService.save(model);
+			model = postService.save(model);
 			response.setData(model);
 		} catch (Exception e) {
 			response.setCode(500);
@@ -58,11 +60,11 @@ public class CategoryController {
 	}
 
 	@PutMapping
-	public Mono<Response> update(@RequestBody CategoryModel model) {
+	public Mono<Response> update(@RequestBody PostModel model) {
 		Response response = new Response();
 
 		try {
-			model = categoryService.save(model);
+			model = postService.save(model);
 			response.setData(model);
 		} catch (Exception e) {
 			response.setCode(500);
