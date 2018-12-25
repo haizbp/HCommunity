@@ -12,8 +12,12 @@ import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 
 @MappedSuperclass
+@Indexed
 public abstract class AbstractEntity implements Serializable {
 
 	/**
@@ -28,10 +32,12 @@ public abstract class AbstractEntity implements Serializable {
 
 	@Column
 	@CreationTimestamp
+	@Field(store = Store.NO)
 	private Timestamp createdDate;
 
 	@Column
 	@UpdateTimestamp
+	@Field(store = Store.NO)
 	private Timestamp lastModified;
 
 	private Boolean disable;

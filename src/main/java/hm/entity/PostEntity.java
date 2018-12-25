@@ -11,13 +11,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Indexed;
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
+import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
 
 import hm.model.PostModel;
 
 @Entity
 @Table(name = "post")
 @Indexed
+@AnalyzerDef(name = "utf8analyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+		@TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
+		@TokenFilterDef(factory = LowerCaseFilterFactory.class) })
 public class PostEntity extends AbstractEntity {
 	/**
 	 * 
@@ -32,8 +44,12 @@ public class PostEntity extends AbstractEntity {
 	@Column
 	private Integer reply;
 	@Column
+	@Field(store = Store.YES)
+	@Analyzer(definition="utf8analyzer")
 	private String title;
 	@Column
+	@Field(store = Store.YES)
+	@Analyzer(definition="utf8analyzer")
 	private String content;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn

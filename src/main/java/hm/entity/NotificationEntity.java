@@ -11,10 +11,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Indexed;
+
 import hm.model.NotificationModel;
 
 @Entity
 @Table(name = "notification")
+@Indexed
 public class NotificationEntity extends AbstractEntity {
 
 	private String type;

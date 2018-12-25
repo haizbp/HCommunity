@@ -10,10 +10,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Indexed;
+
 import hm.model.TagModel;
 
 @Table(name = "tag")
 @Entity
+@Indexed
 public class TagEntity extends AbstractEntity {
 
 	private String key;

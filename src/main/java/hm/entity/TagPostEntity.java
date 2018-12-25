@@ -6,11 +6,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Indexed;
+
 import hm.model.CategoryPostModel;
 import hm.model.TagPostModel;
 
 @Table(name = "tagPost")
 @Entity
+@Indexed
 public class TagPostEntity extends AbstractEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.annotations.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
 import hm.Helper;
 import hm.entity.CategoryEntity;
 import hm.entity.CategoryPostEntity;
@@ -39,6 +39,8 @@ public class PostServiceImpl implements PostService {
 	private CategoryPostRepository categoryPostRepository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private HibernateSearchService hibernateSearchService;
 
 	@Override
 	@Cacheable(value = "SystemCache", key = "#root.target.POST_LIST_CACHE_KEY+':'+#page")
@@ -50,14 +52,21 @@ public class PostServiceImpl implements PostService {
 
 		return response;
 	}
-	
+
 	@Override
 	@Cacheable(value = "SystemCache", key = "#root.target.POST_LIST_CACHE_KEY+':'+#search+':'+#page")
 	public Object get(String search, int page) {
 		Map<String, Object> response = new HashMap<>();
-		Page<PostEntity> pageEntity = postRepository.findAll(PageRequest.of(page - 1, Helper.DEFAULT_PAGE_SIZE));
 
-		fetchData(pageEntity, response);
+		Map<String, Object> data = hibernateSearchService.fuzzySearch(search, page, PostEntity.class,
+				Helper.SEARCH_TITLE_PREFIX, Helper.SEARCH_CONTENT_PREFIX);
+
+		response.put(Helper.PAGE_PREDIX, page);
+		response.put(Helper.RECORD_PER_PAGES_PREDIX, Helper.DEFAULT_PAGE_SIZE);
+		response.put(Helper.TOTAL_PAGES_PREDIX, data.get(Helper.TOTAL_PAGES_PREDIX));
+		response.put(Helper.TOTAL_RECORDS_PREDIX, data.get(Helper.TOTAL_RECORDS_PREDIX));
+		
+		fetchData((List<PostEntity>) data.get(Helper.CONTENT_PREDIX), response);
 
 		return response;
 	}
@@ -130,10 +139,10 @@ public class PostServiceImpl implements PostService {
 	}
 
 	private void fetchData(Page<PostEntity> page, Map<String, Object> target) {
-		target.put("page", page.getNumber() + 1);
-		target.put("recordPerPages", Helper.DEFAULT_PAGE_SIZE);
-		target.put("totalPages", page.getTotalPages());
-		target.put("totalRecords", page.getTotalElements());
+		target.put(Helper.PAGE_PREDIX, page.getNumber() + 1);
+		target.put(Helper.RECORD_PER_PAGES_PREDIX, Helper.DEFAULT_PAGE_SIZE);
+		target.put(Helper.TOTAL_PAGES_PREDIX, page.getTotalPages());
+		target.put(Helper.TOTAL_RECORDS_PREDIX, page.getTotalElements());
 
 		List<PostModel> resContent = new ArrayList<>();
 		PostModel tmp;
@@ -156,7 +165,34 @@ public class PostServiceImpl implements PostService {
 			resContent.add(tmp);
 		}
 
-		target.put("content", resContent);
+		target.put(Helper.CONTENT_PREDIX, resContent);
+
+	}
+	
+	private void fetchData(List<PostEntity> data, Map<String, Object> target) {
+
+		List<PostModel> resContent = new ArrayList<>();
+		PostModel tmp;
+		List<CategoryPostEntity> categoryEntities;
+		List<TagPostEntity> tagEntities;
+		for (PostEntity postEntity : data) {
+			tmp = PostModel.from(postEntity);
+			tmp.setUser(UserModel.from(userRepository.getOne(postEntity.getUser().getId())));
+			categoryEntities = categoryPostRepository.findByPost(postEntity);
+			tagEntities = tagPostRepository.findByPost(postEntity);
+
+			for (CategoryPostEntity e : categoryEntities) {
+				tmp.addCategory(CategoryModel.from(e.getCategory()));
+			}
+
+			for (TagPostEntity e : tagEntities) {
+				tmp.addTag(TagModel.from(e.getTag()));
+			}
+
+			resContent.add(tmp);
+		}
+
+		target.put(Helper.CONTENT_PREDIX, resContent);
 
 	}
 }

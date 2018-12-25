@@ -8,10 +8,13 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Indexed;
+
 import hm.model.CategoryModel;
 
 @Table(name = "category")
 @Entity
+@Indexed
 public class CategoryEntity extends AbstractEntity {
 
 	private String key;

@@ -9,10 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Indexed;
+
 import hm.model.UserModel;
 
 @Entity
 @Table(name = "users")
+@Indexed
 public class UserEntity extends AbstractEntity {
 
 	@Column

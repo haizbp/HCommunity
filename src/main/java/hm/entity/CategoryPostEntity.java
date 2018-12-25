@@ -6,12 +6,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Indexed;
+
 import hm.model.CategoryModel;
 import hm.model.CategoryPostModel;
 import hm.model.PostModel;
 
 @Table(name = "categoryPost")
 @Entity
+@Indexed
 public class CategoryPostEntity extends AbstractEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
