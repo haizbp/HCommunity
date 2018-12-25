@@ -48,5 +48,17 @@ public class HibernateSearchService {
 
 		return target;
 	}
+	
+	@Transactional
+	public void reIndex() {
+		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+		fullTextEntityManager.createIndexer().start();
+	}
+	
+	@Transactional
+	public <T> void reIndex(Class<T> t) {
+		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
+		fullTextEntityManager.createIndexer(t).start();
+	}
 
 }

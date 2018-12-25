@@ -138,6 +138,10 @@ public class PostServiceImpl implements PostService {
 				categoryPostRepository.save(categoryPostEntity);
 			}
 			model.setCategories(target.getCategories());
+			
+			hibernateSearchService.reIndex(PostEntity.class);
+			hibernateSearchService.reIndex(CategoryPostEntity.class);
+			hibernateSearchService.reIndex(TagPostEntity.class);
 		}
 
 		return model;
