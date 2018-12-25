@@ -26,7 +26,7 @@ var app = new Vue({
 				self.viewMode = data;
 			});
 			Func.loadPost(function(data){
-				self.post = data;
+				self.post = data.content;
 			});
 		},
 		dropdown(data, e){

@@ -6,7 +6,7 @@ const ABOUT_US_API = "https://api.jsonbin.io/b/5c19cfc93f8bd92e4cbf0b07/latest "
 const LOGO_MANU_API = "https://api.jsonbin.io/b/5c19deb6412d482eae512be4/latest ";
 const NOTIFICATION_API = "https://api.jsonbin.io/b/5c19e341412d482eae512f83/latest ";
 const MAIN_NOTIFICATION_API = "https://api.jsonbin.io/b/5c1aed60412d482eae51e92c/latest ";
-const MAIN_POST_API = "https://api.jsonbin.io/b/5c1af74b6265442e46f93734/latest ";
+const MAIN_POST_API = "/v1/post/1";
 const DROPDOWN_OPEN_CLASS = "dropdown--open";
 const SEARCH_PANEL_OPEN_CLASS = "header--search";
 
