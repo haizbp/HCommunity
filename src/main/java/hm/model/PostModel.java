@@ -20,6 +20,7 @@ public class PostModel extends AbstractModel {
 	private UserModel user;
 	private Set<TagModel> tags;
 	private Set<CategoryModel> categories;
+	private Set<UserModel> postActivitys;
 
 	public String getbColor() {
 		return bColor;
@@ -30,7 +31,7 @@ public class PostModel extends AbstractModel {
 	}
 
 	public Integer getActivity() {
-		if(activity == null)
+		if (activity == null)
 			activity = 0;
 		return activity;
 	}
@@ -40,7 +41,7 @@ public class PostModel extends AbstractModel {
 	}
 
 	public Integer getView() {
-		if(view == null)
+		if (view == null)
 			view = 0;
 		return view;
 	}
@@ -50,7 +51,7 @@ public class PostModel extends AbstractModel {
 	}
 
 	public Integer getReply() {
-		if(reply == null)
+		if (reply == null)
 			reply = 0;
 		return reply;
 	}
@@ -83,8 +84,6 @@ public class PostModel extends AbstractModel {
 		this.user = user;
 	}
 
-	
-
 	public Set<TagModel> getTags() {
 		return tags;
 	}
@@ -100,17 +99,31 @@ public class PostModel extends AbstractModel {
 	public void setCategories(Set<CategoryModel> categories) {
 		this.categories = categories;
 	}
-	
+
 	public void addCategory(CategoryModel model) {
-		if(categories == null)
+		if (categories == null)
 			categories = new HashSet<>();
 		this.categories.add(model);
 	}
-	
+
 	public void addTag(TagModel model) {
-		if(tags == null)
+		if (tags == null)
 			tags = new HashSet<>();
 		this.tags.add(model);
+	}
+
+	public Set<UserModel> getPostActivitys() {
+		return postActivitys;
+	}
+
+	public void setPostActivitys(Set<UserModel> postActivitys) {
+		this.postActivitys = postActivitys;
+	}
+	
+	public void addPostActivity(UserModel model) {
+		if (postActivitys == null)
+			postActivitys = new HashSet<>();
+		this.postActivitys.add(model);
 	}
 
 	public static PostModel from(PostEntity entity) {

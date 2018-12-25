@@ -25,9 +25,9 @@ public class TestController {
 		UserModel model = new UserModel();
 		model.setUsername("Haiz");
 		model.setImg("");
-		model.setPosted("123k");
-		model.setThread("12k");
-		model.setLastActivity("");
+		model.setPosted(12l);
+		model.setThread(12l);
+		model.setLastActivity(12l);
 		model.setDisable(false);
 		model.setId(1212L);
 

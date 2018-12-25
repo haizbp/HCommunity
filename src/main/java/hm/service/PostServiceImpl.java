@@ -17,13 +17,16 @@ import hm.entity.CategoryPostEntity;
 import hm.entity.PostEntity;
 import hm.entity.TagEntity;
 import hm.entity.TagPostEntity;
+import hm.entity.UserPostActivityEntity;
 import hm.model.CategoryModel;
 import hm.model.PostModel;
 import hm.model.TagModel;
 import hm.model.UserModel;
+import hm.model.UserPostActivityModel;
 import hm.repository.CategoryPostRepository;
 import hm.repository.PostRepository;
 import hm.repository.TagPostRepository;
+import hm.repository.UserPostRepository;
 import hm.repository.UserRepository;
 
 @Service
@@ -41,6 +44,8 @@ public class PostServiceImpl implements PostService {
 	private UserRepository userRepository;
 	@Autowired
 	private HibernateSearchService hibernateSearchService;
+	@Autowired
+	private UserPostRepository userPostRepository;
 
 	@Override
 	@Cacheable(value = "SystemCache", key = "#root.target.POST_LIST_CACHE_KEY+':'+#page")
@@ -148,18 +153,24 @@ public class PostServiceImpl implements PostService {
 		PostModel tmp;
 		List<CategoryPostEntity> categoryEntities;
 		List<TagPostEntity> tagEntities;
+		List<UserPostActivityEntity> activityEntities;
 		for (PostEntity postEntity : page.getContent()) {
 			tmp = PostModel.from(postEntity);
 			tmp.setUser(UserModel.from(userRepository.getOne(postEntity.getUser().getId())));
 			categoryEntities = categoryPostRepository.findByPost(postEntity);
 			tagEntities = tagPostRepository.findByPost(postEntity);
-
+			activityEntities = userPostRepository.findByPost(postEntity);
+			
 			for (CategoryPostEntity e : categoryEntities) {
 				tmp.addCategory(CategoryModel.from(e.getCategory()));
 			}
 
 			for (TagPostEntity e : tagEntities) {
 				tmp.addTag(TagModel.from(e.getTag()));
+			}
+			
+			for (UserPostActivityEntity e : activityEntities) {
+				tmp.addPostActivity(UserModel.from(e.getUser()));
 			}
 
 			resContent.add(tmp);
@@ -175,18 +186,24 @@ public class PostServiceImpl implements PostService {
 		PostModel tmp;
 		List<CategoryPostEntity> categoryEntities;
 		List<TagPostEntity> tagEntities;
+		List<UserPostActivityEntity> activityEntities;
 		for (PostEntity postEntity : data) {
 			tmp = PostModel.from(postEntity);
 			tmp.setUser(UserModel.from(userRepository.getOne(postEntity.getUser().getId())));
 			categoryEntities = categoryPostRepository.findByPost(postEntity);
 			tagEntities = tagPostRepository.findByPost(postEntity);
-
+			activityEntities = userPostRepository.findByPost(postEntity);
+			
 			for (CategoryPostEntity e : categoryEntities) {
 				tmp.addCategory(CategoryModel.from(e.getCategory()));
 			}
 
 			for (TagPostEntity e : tagEntities) {
 				tmp.addTag(TagModel.from(e.getTag()));
+			}
+			
+			for (UserPostActivityEntity e : activityEntities) {
+				tmp.addPostActivity(UserModel.from(e.getUser()));
 			}
 
 			resContent.add(tmp);

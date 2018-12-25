@@ -45,11 +45,11 @@ public class PostEntity extends AbstractEntity {
 	private Integer reply;
 	@Column
 	@Field(store = Store.YES)
-	@Analyzer(definition="utf8analyzer")
+	@Analyzer(definition = "utf8analyzer")
 	private String title;
 	@Column
 	@Field(store = Store.YES)
-	@Analyzer(definition="utf8analyzer")
+	@Analyzer(definition = "utf8analyzer")
 	private String content;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
@@ -58,6 +58,8 @@ public class PostEntity extends AbstractEntity {
 	private Set<TagPostEntity> tagPosts = new HashSet<>();
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
 	private Set<CategoryPostEntity> categoryPosts = new HashSet<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "post")
+	private Set<UserPostActivityEntity> userPostActivitys = new HashSet<>();
 
 	public String getbColor() {
 		return bColor;
@@ -129,6 +131,14 @@ public class PostEntity extends AbstractEntity {
 
 	public void setCategoryPosts(Set<CategoryPostEntity> categoryPosts) {
 		this.categoryPosts = categoryPosts;
+	}
+
+	public Set<UserPostActivityEntity> getUserPostActivitys() {
+		return userPostActivitys;
+	}
+
+	public void setUserPostActivitys(Set<UserPostActivityEntity> userPostActivitys) {
+		this.userPostActivitys = userPostActivitys;
 	}
 
 	public static PostEntity from(PostModel model) {

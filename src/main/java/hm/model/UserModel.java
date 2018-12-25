@@ -7,9 +7,10 @@ public class UserModel extends AbstractModel {
 	private String username;
 	private String password;
 	private String img;
-	private String posted;
-	private String thread;
-	private String lastActivity;
+	private Long posted;
+	private Long thread;
+	private Long lastActivity;
+	private String display;
 
 	public String getUsername() {
 		return username;
@@ -35,41 +36,49 @@ public class UserModel extends AbstractModel {
 		this.img = img;
 	}
 
-	public String getPosted() {
+	public Long getPosted() {
 		return posted;
 	}
 
-	public void setPosted(String posted) {
+	public void setPosted(Long posted) {
 		this.posted = posted;
 	}
 
-	public String getThread() {
+	public Long getThread() {
 		return thread;
 	}
 
-	public void setThread(String thread) {
+	public void setThread(Long thread) {
 		this.thread = thread;
 	}
 
-	public String getLastActivity() {
+	public Long getLastActivity() {
 		return lastActivity;
 	}
 
-	public void setLastActivity(String lastActivity) {
+	public void setLastActivity(Long lastActivity) {
 		this.lastActivity = lastActivity;
 	}
-	
+
+	public String getDisplay() {
+		return display;
+	}
+
+	public void setDisplay(String display) {
+		this.display = display;
+	}
+
 	public static UserModel from(UserEntity entity) {
 		UserModel user = new UserModel();
-		
+
 		user.setUsername(entity.getUsername());
 		user.setImg(entity.getImg());
 		user.setPosted(entity.getPosted());
-		user.setThread(user.getThread());
+		user.setThread(entity.getThread());
 		user.setLastActivity(entity.getLastActivity());
 		user.setDisable(entity.getDisable());
 		user.setId(entity.getId());
-		
+		user.setDisplay(entity.getDisplay());
 		return user;
 	}
 
