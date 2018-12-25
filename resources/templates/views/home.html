@@ -119,29 +119,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="posts__category">
-                                <a :href="post.category.value" class="category">
-                                <i :class="post.category.color"></i>{{post.category.key}}
+                            <div class="posts__category" v-for="cat in post.categories">
+                                <a :href="cat.value" class="category">
+                                <i :class="cat.color"></i>{{cat.key}}
                                 </a>
                             </div>
                         </div>
                         <div class="posts__section-right">
                             <div class="posts__users js-dropdown">
-                                <div :user-id="user.id" :class="'user-'+user.id" v-for="user in post.userActivity">
+                                <div :user-id="user.id" :class="'user-'+user.id" v-for="user in post.postActivitys">
                                     <a v-on:click="dropdown('user-'+user.id, $event)" :data-href="user.href" data-name="user.name" :href="user.href" class="avatar"
                                     :data-dropdown-btn="user.id">
                                         <img :src="user.img" :alt="user.name">
                                     </a>
                                     <div class="posts__users-dropdown dropdown dropdown--user dropdown--reverse-y" :data-dropdown-list="user.id">
                                         <div class="dropdown__user">
-                                            <a href="#" class="dropdown__user-label bg-218380">B</a>
+                                            <a href="#" class="dropdown__user-label bg-218380"><img :src="user.img" :alt="user.name"></a>
                                             <div class="dropdown__user-nav">
                                                 <a href="#"><i class="icon-Add_User"></i></a>
                                                 <a href="#"><i class="icon-Message"></i></a>
                                             </div>
                                             <div class="dropdown__user-info">
                                                 <a href="#">{{user.name}}</a>
-                                                <p>{{user.status.lastActivity}}</p>
+                                                <p>{{user.lastActivity}}</p>
                                             </div>
                                             <div class="dropdown__user-icons">
                                                 <a href="#"><img th:src="@{/resources/images/Intermediate.svg}" alt="user-icon"></a>
@@ -149,8 +149,8 @@
                                                 <a href="#"><img th:src="@{/resources/images/Animal_Lover.svg}" alt="user-icon"></a>
                                             </div>
                                             <div class="dropdown__user-statistic">
-                                                <div>Threads - <span>{{user.status.thread}}</span></div>
-                                                <div>Posts - <span>{{user.status.post}}</span></div>
+                                                <div>Threads - <span>{{user.thread}}</span></div>
+                                                <div>Posts - <span>{{user.posted}}</span></div>
                                             </div>
                                         </div>
                                     </div>
