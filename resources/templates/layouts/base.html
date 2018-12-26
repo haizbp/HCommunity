@@ -29,10 +29,10 @@
 					</nav>
 				</div>
 				<div class="header__search">
-					<form action="#">
+					<form v-on:submit="doSearch">
 						<label> <i v-on:click="openMobileSearch"
-							class="icon-Search js-header-search-btn-open"></i> <input
-							type="search" placeholder="Search all forums"
+							class="icon-Search js-header-search-btn-open"></i> <input v-model="search.value"
+							type="search" placeholder="Search all forums" @keyUp="doSearch"
 							class="form-control">
 						</label>
 					</form>
@@ -152,9 +152,9 @@
 			</div>
 		</div>
 	</header>
-	<main id="id-container">
-	<div layout:fragment="content"></div>
-	</main>
+	<div id="main">
+	<div  id="id-container" layout:fragment="content"></div>
+	</div>
 	<script th:replace="~{/components/js}"></script>
 	<div layout:fragment="customjs"></div>
 	<div layout:fragment="customcss"></div>
