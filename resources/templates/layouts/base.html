@@ -21,9 +21,13 @@
 					</div>
 					<nav class="dropdown dropdown--design-01" data-dropdown-list="logo">
 						<ul class="dropdown__catalog">
-							<li v-for="menu in logoMenu" :key="menu.key"><a
+							<li v-for="menu in logoMenu" :key="menu.key">
+							<img class="img-menu" :src="menu.icon" :alt="menu.key"/>
+							<span class="space"></span>
+							<a
 								:data-value="menu.value" :data-display="menu.key"
-								:href="menu.value">{{menu.key}}</a></li>
+								:href="menu.value">{{menu.key}}</a>
+							</li>
 
 						</ul>
 					</nav>
@@ -146,10 +150,7 @@
 					</nav>
 				</div>
 			</div>
-			<div class="header__offset-btn">
-				<a href="create-topic.html"><img
-					th:src="@{/resources/images/New_Topic.svg}" alt="New Topic"></a>
-			</div>
+			
 		</div>
 	</header>
 	<div id="main">

@@ -10,16 +10,16 @@
     <div class="container">
             <div class="create">
                 <div class="create__head">
-                    <div class="create__title"><img th:src="@{/resources/images/New_Topic.svg}" alt="New topic">Create New Thread</div>
+                    <div class="create__title"><img th:src="@{/resources/images/New_Topic.svg}" alt="New topic">New topic</div>
                     <span>Forum Guidelines</span>
                 </div>
                 <div class="create__section">
-                    <label class="create__label" for="title">Thread Title</label>
-                    <input type="text" class="form-control" id="title" placeholder="e.g. hello">
+                    <label class="create__label" for="title">Topic title</label>
+                    <input v-model="model.title" type="text" class="form-control" id="title" placeholder="Topic title">
                 </div>
                 
                 <div class="create__section create__textarea">
-                    <label class="create__label" for="description">Description</label>
+                    <label class="create__label" for="description">Content</label>
                     <div class="create__textarea-head">
                         <span><i class="icon-Quote"></i></span>
                         <span><i class="icon-Bold"></i></span>
@@ -40,97 +40,19 @@
                             <a href="create-topic.html#" class="btn">Preview</a>
                         </div>
                     </div>
-                    <textarea class="form-control" id="description" placeholder="e.g. anything interesting...?"></textarea>
+                    <textarea v-model="model.content" class="form-control" id="description" placeholder="Content"></textarea>
                 </div>
 				<div class="create__section">
-                    <label class="create__label" for="tags">Add Tags</label>
-                    <input type="text" class="form-control" id="tags" placeholder="e.g. nature, science">
+					<label class="create__label" for="tags">Add tags</label>
+                    <input v-model="model.tags" type="text" class="form-control" id="tags" placeholder="e.g. nature, science">
                 </div>
-                <div class="create__section">
-                    <label class="create__label" for="tags">Add Tags</label>
-                    <input type="text" class="form-control" id="tags" placeholder="e.g. nature, science">
-                </div>
-                <div class="create__advanced">
-                    <div class="row">
-                        <div class="col-lg-4 col-xl-4">
-                            <div class="create__section">
-                                <label class="create__label">Who can see this?</label>
-                                <div class="create__radio">
-                                    <label class="create__box">
-                                        <label class="custom-radio">
-                                            <input type="radio" name="can-see" checked="checked">
-                                            <i></i>
-                                        </label>
-                                        <span>Everyone</span>
-                                    </label>
-                                    <label class="create__box">
-                                        <label class="custom-radio">
-                                            <input type="radio" name="can-see">
-                                            <i></i>
-                                        </label>
-                                        <span>Only Friends</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-xl-3">
-                            <div class="create__section">
-								<!--
-                                <label class="create__label">Share on Social?</label>
-                                <div class="create__radio">
-                                    <label class="create__box">
-                                        <label class="custom-checkbox">
-                                            <input type="checkbox" name="share-social" checked="checked">
-                                            <i></i>
-                                        </label>
-                                        <i class="fa fa-facebook-square" aria-hidden="true"></i>
-                                    </label>
-                                    <label class="create__box">
-                                        <label class="custom-checkbox">
-                                            <input type="checkbox" name="share-social" checked="checked">
-                                            <i></i>
-                                        </label>
-                                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                                    </label>
-                                    <label class="create__box">
-                                        <label class="custom-checkbox">
-                                            <input type="checkbox" name="share-social">
-                                            <i></i>
-                                        </label>
-                                        <i class="fa fa-google-plus" aria-hidden="true"></i>
-                                    </label>
-                                </div>
-								-->
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-xl-5">
-                            <div class="create__section">
-								<!--
-                                <label class="create__label">Is this a Mature Thread?</label>
-                                <div class="create__radio">
-                                    <label class="create__box">
-                                        <label class="custom-radio">
-                                            <input type="radio" name="mature-thread">
-                                            <i></i>
-                                        </label>
-                                        <span>Yes</span>
-                                    </label>
-                                    <label class="create__box">
-                                        <label class="custom-radio">
-                                            <input type="radio" name="mature-thread" checked="checked">
-                                            <i></i>
-                                        </label>
-                                        <span>No</span>
-                                    </label>
-                                </div>
-								-->
-                            </div>
-                        </div>
-                    </div>
+				<div class="create__section">
+					<label class="create__label" for="tags">Add categories</label>
+						<a v-on:click="catToggle(cat, $event)" v-for="cat in categories" href="javascript:void(0)" class="create__btn-mar-right btn" :color="cat.color" :key="cat.key" :value="cat.value">{{cat.key}}</a>
                 </div>
                 <div class="create__footer">
-                    <a href="create-topic.html#" class="create__btn-cansel btn">Cancel</a>
-                    <a href="create-topic.html#" class="create__btn-create btn btn--type-02">Create Thread</a>
+                    <a href="javascript:void(0)" v-on:click="doReset" class="create__btn-cansel btn">Cancel</a>
+                    <a href="javascript:void(0)" v-on:click="doSubmit" class="create__btn-create btn btn--type-02">Create Thread</a>
                 </div>
             </div>
             <div class="posts" data-visible="desktop">
@@ -288,7 +210,7 @@
         </div>
 </div>
 <div layout:fragment="customjs">
-    <script type="text/javascript" th:src="@{/resources/js/controller/index.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/controller/create.js}"></script>
 </div>
 <div layout:fragment="customcss">
     <!-- nothing -->
