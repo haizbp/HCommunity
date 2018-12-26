@@ -16,8 +16,10 @@ import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
 import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.IndexedEmbedded;
 import org.hibernate.search.annotations.Store;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
@@ -27,21 +29,26 @@ import hm.model.PostModel;
 @Entity
 @Table(name = "post")
 @Indexed
-@AnalyzerDef(name = "utf8analyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class) })
 public class PostEntity extends AbstractEntity {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	@Column
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private String bColor;
 	@Column
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private Integer activity;
 	@Column
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private Integer view;
 	@Column
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private Integer reply;
 	@Column
 	@Field(store = Store.YES)

@@ -30,7 +30,7 @@ public class HibernateSearchService {
 
 		FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 		QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(t).get();
-		Query luceneQuery = qb.keyword().onFields(fields).matching(searchTerm).createQuery();
+		Query luceneQuery = qb.keyword().onFields(fields).matching(searchTerm.trim()).createQuery();
 
 		FullTextQuery jpaQuery = (FullTextQuery) fullTextEntityManager.createFullTextQuery(luceneQuery, t);
 

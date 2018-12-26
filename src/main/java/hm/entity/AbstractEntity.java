@@ -10,14 +10,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.apache.lucene.analysis.core.LowerCaseFilterFactory;
+import org.apache.lucene.analysis.miscellaneous.ASCIIFoldingFilterFactory;
+import org.apache.lucene.analysis.standard.StandardTokenizerFactory;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
 
 @MappedSuperclass
 @Indexed
+@AnalyzerDef(name = "utf8analyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+		@TokenFilterDef(factory = ASCIIFoldingFilterFactory.class),
+		@TokenFilterDef(factory = LowerCaseFilterFactory.class) })
 public abstract class AbstractEntity implements Serializable {
 
 	/**
@@ -28,16 +38,19 @@ public abstract class AbstractEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column
+	@Analyzer(definition = "utf8analyzer")
 	private Long id;
 
 	@Column
 	@CreationTimestamp
-	@Field(store = Store.NO)
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private Timestamp createdDate;
 
 	@Column
 	@UpdateTimestamp
-	@Field(store = Store.NO)
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private Timestamp lastModified;
 
 	private Boolean disable;

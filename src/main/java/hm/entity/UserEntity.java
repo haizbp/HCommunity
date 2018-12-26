@@ -9,6 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Store;
 import org.springframework.stereotype.Indexed;
 
 import hm.model.UserModel;
@@ -18,18 +22,32 @@ import hm.model.UserModel;
 @Indexed
 public class UserEntity extends AbstractEntity {
 
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	@Column
 	private String username;
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	@Column
 	private String password;
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	@Column
 	private String img;
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	@Column
 	private Long posted;
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	@Column
 	private Long thread;
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	@Column
 	private Long lastActivity;
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private String display;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<PostEntity> posts = new HashSet<>();

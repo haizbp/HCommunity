@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.WebSession;
 
+import hm.Helper;
 import hm.annotation.ApiVersion;
 import hm.model.PostModel;
 import hm.model.Response;
+import hm.model.UserModel;
 import hm.service.PostService;
 import reactor.core.publisher.Mono;
 
@@ -60,10 +63,12 @@ public class PostController {
 	}
 
 	@PostMapping
-	public Mono<Response> insert(@RequestBody PostModel model) {
+	public Mono<Response> insert(@RequestBody PostModel model, WebSession session) {
 		Response response = new Response();
 
 		try {
+			UserModel user = (UserModel) session.getAttributes().get(Helper.LOGIN_USER_KEY);
+			model.setUser(user);
 			model = postService.save(model);
 			response.setData(model);
 		} catch (Exception e) {
@@ -75,10 +80,12 @@ public class PostController {
 	}
 
 	@PutMapping
-	public Mono<Response> update(@RequestBody PostModel model) {
+	public Mono<Response> update(@RequestBody PostModel model, WebSession session) {
 		Response response = new Response();
 
 		try {
+			UserModel user = (UserModel) session.getAttributes().get(Helper.LOGIN_USER_KEY);
+			model.setUser(user);
 			model = postService.save(model);
 			response.setData(model);
 		} catch (Exception e) {

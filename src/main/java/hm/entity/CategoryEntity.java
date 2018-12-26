@@ -8,6 +8,10 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Store;
 import org.springframework.stereotype.Indexed;
 
 import hm.model.CategoryModel;
@@ -17,8 +21,14 @@ import hm.model.CategoryModel;
 @Indexed
 public class CategoryEntity extends AbstractEntity {
 
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private String key;
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private String value;
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private String color;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
 	private Set<CategoryPostEntity> categoryPosts = new HashSet<>();

@@ -139,9 +139,12 @@ public class PostServiceImpl implements PostService {
 			}
 			model.setCategories(target.getCategories());
 			
+			UserPostActivityEntity activityEntity = new UserPostActivityEntity();
+			activityEntity.setPost(entity);
+			activityEntity.setUser(entity.getUser());
+			userPostRepository.save(activityEntity);
+			
 			hibernateSearchService.reIndex(PostEntity.class);
-			hibernateSearchService.reIndex(CategoryPostEntity.class);
-			hibernateSearchService.reIndex(TagPostEntity.class);
 		}
 
 		return model;

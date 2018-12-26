@@ -11,6 +11,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.search.annotations.Store;
 import org.springframework.stereotype.Indexed;
 
 import hm.model.NotificationModel;
@@ -19,11 +23,21 @@ import hm.model.NotificationModel;
 @Table(name = "notification")
 @Indexed
 public class NotificationEntity extends AbstractEntity {
-
+	
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private String type;
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private String icon;
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private String value;
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private String key;
+	@Field(store = Store.YES)
+	@Analyzer(definition = "utf8analyzer")
 	private Boolean read;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
