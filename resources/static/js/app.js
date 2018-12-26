@@ -1,5 +1,6 @@
 const TAGS_LISTING_APPI = "/v1/tag";
 const CATS_LISTING_API = "/v1/category";
+const ADD_NEW_TOPIC_API = "/v1/post";
 const VIEWMODE_LISTING_API = "https://api.jsonbin.io/b/5c18a80633a8fe76ff4e5a4a/latest ";
 const HEADER_NAV_LISTING_API = "https://api.jsonbin.io/b/5c19c613412d482eae511688/latest ";
 const ABOUT_US_API = "https://api.jsonbin.io/b/5c19cfc93f8bd92e4cbf0b07/latest ";
@@ -10,9 +11,40 @@ const MAIN_POST_API = "/v1/post/";
 const HEADER_POST_API = "/v1/post/search";
 const DROPDOWN_OPEN_CLASS = "dropdown--open";
 const SEARCH_PANEL_OPEN_CLASS = "header--search";
-
-var indexVue;
-var headerVue;
+const COLOR = [
+'bg-f9bc64',
+'bg-348aa7',
+'bg-4436f8',
+'bg-5dd39e',
+'bg-ff755a',
+'bg-bce784',
+'bg-83253f',
+'bg-c49bbb',
+'bg-3ebafa',
+'bg-c6b38e',
+'bg-a7cdbd',
+'bg-525252',
+'bg-777da7',
+'bg-368f8b',
+'bg-fef2e0',
+'bg-f2f4f6',
+'bg-4f80b0',
+'bg-424ee8',
+'bg-36b7d7',
+'bg-ec008c',
+'bg-7cc576',
+'bg-3a3a17',
+'bg-6f7e9c',
+'bg-f26522',
+'bg-a3d39c',
+'bg-6f7e9c',
+'bg-92278f',
+'bg-8781bd',
+'bg-f1ab32',
+'bg-3b96ca',
+'bg-00bd9d',
+'bg-218380'];
+const SCREEN_APP = {};
 
 $.ajaxSetup({
     headers: {
@@ -37,6 +69,17 @@ const Func = {
 		$([document.documentElement, document.body]).animate({
 			scrollTop: ($(e).offset().top )
 		}, delay);
+	},
+	addTopic: function(body, callback){
+		$.ajax({
+            type: "POST",
+            url: ADD_NEW_TOPIC_API, 
+            data: JSON.stringify(body), 
+			contentType: "application/json",
+            success: function(data) {
+                callback(data.data);
+            }
+        });
 	},
     loadTags: function(callback) {
         $.get(TAGS_LISTING_APPI, function(data, status) {

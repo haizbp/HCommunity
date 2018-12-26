@@ -1,4 +1,4 @@
-indexVue = new Vue({
+SCREEN_APP.indexVue = new Vue({
     el: "#id-container",
     data: {
 		page: {

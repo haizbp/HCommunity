@@ -1,4 +1,4 @@
-headerVue = new Vue({
+SCREEN_APP.headerVue = new Vue({
     el: "#id-header",
     data: {
 		msg: 'test',
@@ -54,8 +54,8 @@ headerVue = new Vue({
 		},
 		doSearch(e){
 			var self = this;
-			indexVue.page.current = 0;
-			indexVue.loadMore(self.search.value);
+			SCREEN_APP.indexVue.page.current = 0;
+			SCREEN_APP.indexVue.loadMore(self.search.value);
 			e.preventDefault();
 	        return false;
 		}
