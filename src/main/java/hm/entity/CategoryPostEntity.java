@@ -25,7 +25,7 @@ public class CategoryPostEntity extends AbstractEntity {
 	@JoinColumn
 	private PostEntity post;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn
+	@JoinColumn(nullable = true)
 	private CategoryEntity category;
 
 	public PostEntity getPost() {

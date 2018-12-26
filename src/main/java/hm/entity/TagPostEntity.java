@@ -23,7 +23,7 @@ public class TagPostEntity extends AbstractEntity {
 	@JoinColumn
 	private PostEntity post;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn
+	@JoinColumn(nullable = true)
 	private TagEntity tag;
 
 	public PostEntity getPost() {
