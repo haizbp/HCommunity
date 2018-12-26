@@ -1,4 +1,4 @@
-var app = new Vue({
+headerVue = new Vue({
     el: "#id-header",
     data: {
 		msg: 'test',
@@ -11,6 +11,9 @@ var app = new Vue({
 		notification: {
 			count: 0,
 			list: []
+		},
+		search: {
+			value: ''
 		}
     },
 	methods: {
@@ -48,6 +51,13 @@ var app = new Vue({
 		},
 		dropdownSelect(e){
 			Func.dropdownSelect(e);
+		},
+		doSearch(e){
+			var self = this;
+			indexVue.page.current = 0;
+			indexVue.loadMore(self.search.value);
+			e.preventDefault();
+	        return false;
 		}
 	},
 	mounted: function(){

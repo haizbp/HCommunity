@@ -9,9 +9,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #ffffff;
 }
-main {
+#main {
   min-height: 400px;
 }
+
+#main .container {
+	margin-top: 100px;
+}
+  
 h1,
 h2,
 h3,
@@ -2683,10 +2688,13 @@ select {
   color: #5b6065;
 }
 .header {
-  position: relative;
+  position: fixed;
   border-bottom: solid 1px #e9ecee;
   background-color: #ffffff;
   z-index: 1;
+  left: 0;
+  right: 0;
+  top: 0;
 }
 .header > .container {
   justify-content: space-between;
@@ -2788,6 +2796,9 @@ select {
 @media only screen and (max-width: 1039px) {
   .header__search {
     order: 1;
+  }
+  #main .container{
+	margin-top: 72px;
   }
 }
 .header__search form {
@@ -3197,7 +3208,7 @@ select {
 }
 @media only screen and (min-width: 1040px) {
   .footer {
-    margin-top: 70px;
+    margin-top: 30px;
   }
 }
 @media only screen and (max-width: 1039px) {
@@ -3553,4 +3564,16 @@ a:hover {
 }
 .bg-218380 {
   background-color: #218380 !important;
+}
+
+.margin-0-auto{
+	margin: 0 auto;
+}
+
+.float-right{
+	float: right;
+}
+
+.margin-top-20px{
+	margin-top: 20px;
 }
