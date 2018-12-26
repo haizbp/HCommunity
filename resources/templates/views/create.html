@@ -7,51 +7,133 @@
 </head>
 <body>
 <div layout:fragment="content">
-     <div class="container">
-            <div class="nav">
-                <div class="nav__categories js-dropdown">
-                    <div class="nav__select nav_categories">
-						<input type="hidden" data-dropdown-value="categories"></input>
-                        <div v-on:click="dropdown('nav_categories', $event)" class="btn-select" data-dropdown-btn="categories">All Categories</div>
-                        <nav class="dropdown dropdown--design-01" data-dropdown-list="categories">
-                            <ul class="dropdown__catalog row">
-							<li class="col-xs-6"><a v-on:click="dropdownSelect" data-value="" data-display="All Categories" href="#" class="category"><i class="bg-ef429e"></i>All Categories</a></li>
-                                <li class="col-xs-6" v-for="cat in cats" :key="cat.key">
-								<a v-on:click="dropdownSelect" :data-value="cat.value" :data-display="cat.key" :href="cat.value" class="category"><i :class="cat.color"></i>{{cat.key}}</a>
-								</li>
-                            </ul>
-                        </nav>
+    <div class="container">
+            <div class="create">
+                <div class="create__head">
+                    <div class="create__title"><img th:src="@{/resources/images/New_Topic.svg}" alt="New topic">Create New Thread</div>
+                    <span>Forum Guidelines</span>
+                </div>
+                <div class="create__section">
+                    <label class="create__label" for="title">Thread Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="e.g. hello">
+                </div>
+                
+                <div class="create__section create__textarea">
+                    <label class="create__label" for="description">Description</label>
+                    <div class="create__textarea-head">
+                        <span><i class="icon-Quote"></i></span>
+                        <span><i class="icon-Bold"></i></span>
+                        <span><i class="icon-Italic"></i></span>
+                        <div class="create__textarea-separate"></div>
+                        <span><i class="icon-Share_Topic"></i></span>
+                        <span><i class="icon-BlockQuote"></i></span>
+                        <span><i class="icon-Performatted"></i></span>
+                        <span><i class="icon-Upload_Files"></i></span>
+                        <span class="create__textarea-separate"></span>
+                        <span><i class="icon-Bullet_List"></i></span>
+                        <span><i class="icon-heading"></i></span>
+                        <span><i class="icon-Horizontal_Line"></i></span>
+                        <span><i class="icon-Emoticon"></i></span>
+                        <span><i class="icon-Settings"></i></span>
+                        <span><i class="icon-Color_Picker"></i></span>
+                        <div class="create__textarea-btn">
+                            <a href="create-topic.html#" class="btn">Preview</a>
+                        </div>
                     </div>
-                    <div class="nav__select nav_tags">
-						<input type="hidden" data-dropdown-value="tags"></input>
-                        <div v-on:click="dropdown('nav_tags', $event)" class="btn-select" data-dropdown-btn="tags">All Tags</div>
-                        <div class="dropdown dropdown--design-01" data-dropdown-list="tags">
-                            <div class="tags">
-							<a v-on:click="dropdownSelect" href="#" data-value="" data-display="All Tags" class="bg-ef429e">All Tags</a>
-                                <a v-on:click="dropdownSelect" :data-value="tag.value" :data-display="tag.key" v-for="tag in tags" :key="tag.key" :href="tag.value" :class="tag.color">{{tag.key}}</a>
+                    <textarea class="form-control" id="description" placeholder="e.g. anything interesting...?"></textarea>
+                </div>
+				<div class="create__section">
+                    <label class="create__label" for="tags">Add Tags</label>
+                    <input type="text" class="form-control" id="tags" placeholder="e.g. nature, science">
+                </div>
+                <div class="create__section">
+                    <label class="create__label" for="tags">Add Tags</label>
+                    <input type="text" class="form-control" id="tags" placeholder="e.g. nature, science">
+                </div>
+                <div class="create__advanced">
+                    <div class="row">
+                        <div class="col-lg-4 col-xl-4">
+                            <div class="create__section">
+                                <label class="create__label">Who can see this?</label>
+                                <div class="create__radio">
+                                    <label class="create__box">
+                                        <label class="custom-radio">
+                                            <input type="radio" name="can-see" checked="checked">
+                                            <i></i>
+                                        </label>
+                                        <span>Everyone</span>
+                                    </label>
+                                    <label class="create__box">
+                                        <label class="custom-radio">
+                                            <input type="radio" name="can-see">
+                                            <i></i>
+                                        </label>
+                                        <span>Only Friends</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xl-3">
+                            <div class="create__section">
+								<!--
+                                <label class="create__label">Share on Social?</label>
+                                <div class="create__radio">
+                                    <label class="create__box">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="share-social" checked="checked">
+                                            <i></i>
+                                        </label>
+                                        <i class="fa fa-facebook-square" aria-hidden="true"></i>
+                                    </label>
+                                    <label class="create__box">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="share-social" checked="checked">
+                                            <i></i>
+                                        </label>
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    </label>
+                                    <label class="create__box">
+                                        <label class="custom-checkbox">
+                                            <input type="checkbox" name="share-social">
+                                            <i></i>
+                                        </label>
+                                        <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                    </label>
+                                </div>
+								-->
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-xl-5">
+                            <div class="create__section">
+								<!--
+                                <label class="create__label">Is this a Mature Thread?</label>
+                                <div class="create__radio">
+                                    <label class="create__box">
+                                        <label class="custom-radio">
+                                            <input type="radio" name="mature-thread">
+                                            <i></i>
+                                        </label>
+                                        <span>Yes</span>
+                                    </label>
+                                    <label class="create__box">
+                                        <label class="custom-radio">
+                                            <input type="radio" name="mature-thread" checked="checked">
+                                            <i></i>
+                                        </label>
+                                        <span>No</span>
+                                    </label>
+                                </div>
+								-->
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="nav__menu js-dropdown">
-                    <div class="nav__select nav_menu-filter">
-						<input type="hidden" data-dropdown-value="menu-filter"></input>
-                        <div v-on:click="dropdown('nav_menu-filter', $event)" class="btn-select" data-dropdown-btn="menu-filter">Latest</div>
-                        <div class="dropdown dropdown--design-01" data-dropdown-list="menu-filter">
-                            <ul class="dropdown__catalog">
-                                <li v-for="mode in viewMode" :key="mode.key"><a :data-value="mode.value" :data-display="mode.key" v-on:click="dropdownSelect" href="#">{{mode.key}}</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <ul>
-						<input type="hidden"></input>
-						<li :class="mode.active" v-for="mode in viewMode" :key="mode.key">
-							<a :data-value="mode.value" :data-display="mode.key" v-on:click="modeFilter" :href="mode.value">{{mode.key}}</a>
-						</li>
-                    </ul>
+                <div class="create__footer">
+                    <a href="create-topic.html#" class="create__btn-cansel btn">Cancel</a>
+                    <a href="create-topic.html#" class="create__btn-create btn btn--type-02">Create Thread</a>
                 </div>
             </div>
-            <div class="posts">
+            <div class="posts" data-visible="desktop">
                 <div class="posts__head">
                     <div class="posts__topic">Topic</div>
                     <div class="posts__category">Category</div>
@@ -61,110 +143,147 @@
                     <div class="posts__activity">Activity</div>
                 </div>
                 <div class="posts__body">
-                    <div v-if="notifications.show" class="posts__item" :class="itm.bColor" v-for="itm in notifications.data">
+                    <div class="posts__item">
                         <div class="posts__section-left">
                             <div class="posts__topic">
                                 <div class="posts__content">
-                                    <a :href="itm.href">
-                                        <h3><i><img th:src="@{/resources/images/Pinned.svg}" alt='Pinned'></i>{{itm.title}}</h3>
+                                    <a href="create-topic.html#">
+                                        <h3>Current news and discussion</h3>
                                     </a>
-                                    <p>{{itm.content}}</p>
                                 </div>
                             </div>
+                            <div class="posts__category"><a href="create-topic.html#" class="category"><i class="bg-368f8b"></i>Politics</a></div>
                         </div>
                         <div class="posts__section-right">
-                            <div class="posts__users js-dropdown">
-                                <div v-for="user in itm.userActivity">
-                                    <a :data-href="user.href" data-name="user.name" :href="user.href" class="avatar">
-                                        <img :src="user.img" :alt="user.name">
-                                    </a>
-                                    <div class="posts__users-dropdown dropdown dropdown--user dropdown--reverse-y" data-dropdown-list="user-b">
-                                        <div class="dropdown__user">
-                                            <a href="#" class="dropdown__user-label bg-218380">B</a>
-                                            <div class="dropdown__user-nav">
-                                                <a href="#"><i class="icon-Add_User"></i></a>
-                                                <a href="#"><i class="icon-Message"></i></a>
-                                            </div>
-                                            <div class="dropdown__user-info">
-                                                <a href="#">{{user.name}}</a>
-                                                <p>{{user.status.lastActivity}}</p>
-                                            </div>
-                                            <div class="dropdown__user-icons">
-                                                <a href="#"><img th:src="@{/resources/images/Intermediate.svg}" alt="user-icon"></a>
-                                                <a href="#"><img th:src="@{/resources/images/Bot.svg}" alt="user-icon"></a>
-                                                <a href="#"><img th:src="@{/resources/images/Animal_Lover.svg}" alt="user-icon"></a>
-                                            </div>
-                                            <div class="dropdown__user-statistic">
-                                                <div>Threads - <span>{{user.status.thread}}</span></div>
-                                                <div>Posts - <span>{{user.status.post}}</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="posts__users">
+                                <div>
+                                    <a href="create-topic.html#" class="avatar"><img src="images/A.svg" alt="avatar"></a>
+                                </div>
+                                <div>
+                                    <a href="create-topic.html#" class="avatar"><img src="images/G.svg" alt="avatar"></a>
+                                </div>
+                                <div>
+                                    <a href="create-topic.html#" class="avatar"><img src="images/P.svg" alt="avatar"></a>
                                 </div>
                             </div>
-                            <div class="posts__replies">{{itm.reply}}</div>
-                            <div class="posts__views">{{itm.view}}</div>
-                            <div class="posts__activity">{{itm.activity}}</div>
+                            <div class="posts__replies">31</div>
+                            <div class="posts__views">14.5k</div>
+                            <div class="posts__activity">13d</div>
                         </div>
                     </div>
-                    <div class="posts__item" :class="post.bColor" v-for="post in post">
+                    <div class="posts__item bg-f2f4f6">
                         <div class="posts__section-left">
                             <div class="posts__topic">
                                 <div class="posts__content">
-                                    <a :href="post.href">
-                                        <h3><i v-if="post.block" class="icon-Locked"></i>{{post.title}}</h3>
+                                    <a href="create-topic.html#">
+                                        <h3>Get your username drawn by the other users of unity! or a drawing based on what you do</h3>
                                     </a>
                                     <div class="posts__tags tags">
-                                        <a v-for="tag in post.tags" :href="tag.value" :class="tag.color">{{tag.key}}</a>
+                                        <a href="create-topic.html#" class="bg-4f80b0">gaming</a>
+                                        <a href="create-topic.html#" class="bg-424ee8">nature</a>
+                                        <a href="create-topic.html#" class="bg-36b7d7">entertainment</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="posts__category" v-for="cat in post.categories">
-                                <a :href="cat.value" class="category">
-                                <i :class="cat.color"></i>{{cat.key}}
-                                </a>
-                            </div>
+                            <div class="posts__category"><a href="create-topic.html#" class="category"><i class="bg-4436f8"></i>Video</a></div>
                         </div>
                         <div class="posts__section-right">
-                            <div class="posts__users js-dropdown">
-                                <div :user-id="user.id" :class="'user-'+user.id" v-for="user in post.postActivitys">
-                                    <a v-on:click="dropdown('user-'+user.id, $event)" :data-href="user.href" data-name="user.name" :href="user.href" class="avatar"
-                                    :data-dropdown-btn="user.id">
-                                        <img :src="user.img" :alt="user.name">
+                            <div class="posts__users">
+                                <div>
+                                    <a href="create-topic.html#" class="avatar"><img src="images/L.svg" alt="avatar"></a>
+                                </div>
+                                <div>
+                                    <a href="create-topic.html#" class="avatar"><img src="images/T.svg" alt="avatar"></a>
+                                </div>
+                            </div>
+                            <div class="posts__replies">252</div>
+                            <div class="posts__views">396</div>
+                            <div class="posts__activity">13m</div>
+                        </div>
+                    </div>
+                    <div class="posts__item">
+                        <div class="posts__section-left">
+                            <div class="posts__topic">
+                                <div class="posts__content">
+                                    <a href="create-topic.html#">
+                                        <h3>Which movie have you watched most recently?</h3>
                                     </a>
-                                    <div class="posts__users-dropdown dropdown dropdown--user dropdown--reverse-y" :data-dropdown-list="user.id">
-                                        <div class="dropdown__user">
-                                            <a href="#" class="dropdown__user-label bg-218380"><img :src="user.img" :alt="user.name"></a>
-                                            <div class="dropdown__user-nav">
-                                                <a href="#"><i class="icon-Add_User"></i></a>
-                                                <a href="#"><i class="icon-Message"></i></a>
-                                            </div>
-                                            <div class="dropdown__user-info">
-                                                <a href="#">{{user.name}}</a>
-                                                <p>{{user.lastActivity}}</p>
-                                            </div>
-                                            <div class="dropdown__user-icons">
-                                                <a href="#"><img th:src="@{/resources/images/Intermediate.svg}" alt="user-icon"></a>
-                                                <a href="#"><img th:src="@{/resources/images/Bot.svg}" alt="user-icon"></a>
-                                                <a href="#"><img th:src="@{/resources/images/Animal_Lover.svg}" alt="user-icon"></a>
-                                            </div>
-                                            <div class="dropdown__user-statistic">
-                                                <div>Threads - <span>{{user.thread}}</span></div>
-                                                <div>Posts - <span>{{user.posted}}</span></div>
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                            <div class="posts__category"><a href="create-topic.html#" class="category"><i class="bg-3ebafa"></i> Exchange</a></div>
+                        </div>
+                        <div class="posts__section-right">
+                            <div class="posts__users">
+                                <div>
+                                    <a href="create-topic.html#" class="avatar"><img src="images/E.svg" alt="avatar"></a>
+                                </div>
+                                <div>
+                                    <a href="create-topic.html#" class="avatar"><img src="images/I.svg" alt="avatar"></a>
+                                </div>
+                                <div>
+                                    <a href="create-topic.html#" class="avatar"><img src="images/R.svg" alt="avatar"></a>
+                                </div>
+                            </div>
+                            <div class="posts__replies">207</div>
+                            <div class="posts__views">7.5k</div>
+                            <div class="posts__activity">41m</div>
+                        </div>
+                    </div>
+                    <div class="posts__item posts__item--bg-gradient">
+                        <div class="posts__section-left">
+                            <div class="posts__topic">
+                                <div class="posts__content">
+                                    <a href="create-topic.html#">
+                                        <h3><span>This post contails spoiler about</span> Star Wars Movie.</h3>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="posts__category"><a href="create-topic.html#" class="category"><i class="bg-777da7"></i> Q&amp;As</a></div>
+                        </div>
+                        <div class="posts__section-right">
+                            <div class="posts__users">
+                                <div>
+                                    <a href="create-topic.html#" class="avatar"><img src="images/F.svg" alt="avatar"></a>
+                                </div>
+                            </div>
+                            <div class="posts__replies">2.3k</div>
+                            <div class="posts__views">2.0k</div>
+                            <div class="posts__activity">1h</div>
+                        </div>
+                    </div>
+                    <div class="posts__item">
+                        <div class="posts__section-left">
+                            <div class="posts__topic">
+                                <div class="posts__content">
+                                    <a href="create-topic.html#">
+                                        <h3>Take a picture of what you’re doing at this very moment</h3>
+                                    </a>
+                                    <div class="posts__tags tags">
+                                        <a href="create-topic.html#" class="bg-ec008c">selfie</a>
+                                        <a href="create-topic.html#" class="bg-7cc576">camera</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="posts__replies">{{post.reply}}</div>
-                            <div class="posts__views">{{post.view}}</div>
-                            <div class="posts__activity">{{post.activity}}</div>
+                            <div class="posts__category"><a href="create-topic.html#" class="category"><i class="bg-c6b38e"></i> Pets</a></div>
+                        </div>
+                        <div class="posts__section-right">
+                            <div class="posts__users">
+                                <div>
+                                    <a href="create-topic.html#" class="avatar"><img src="images/C.svg" alt="avatar"></a>
+                                </div>
+                                <div>
+                                    <a href="create-topic.html#" class="avatar"><img src="images/U.svg" alt="avatar"></a>
+                                </div>
+                                <div>
+                                    <a href="create-topic.html#" class="avatar"><img src="images/I.svg" alt="avatar"></a>
+                                </div>
+                            </div>
+                            <div class="posts__replies">441</div>
+                            <div class="posts__views">3.1k</div>
+                            <div class="posts__activity">6h</div>
                         </div>
                     </div>
                 </div>
-				<div v-if="page.showMore" class="create__box margin-top-20px">
-					<a v-on:click="loadMore('')" href="javascript:void(0)" class="create__btn-create btn btn--type-02 margin-0-auto">Load more</a>
-				</div>			
             </div>
         </div>
 </div>
