@@ -22,3 +22,24 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 target/
+.settings/
+.project
+.classpath
+resources/indexed/hm.entity.AbstractEntity/write.lock
+resources/indexed/hm.entity.AbstractEntity/segments_k
+resources/indexed/hm.entity.AbstractEntity/_i_Lucene50_0.tip
+resources/indexed/hm.entity.AbstractEntity/_i_Lucene50_0.tim
+resources/indexed/hm.entity.AbstractEntity/_i_Lucene50_0.pos
+resources/indexed/hm.entity.AbstractEntity/_i_Lucene50_0.doc
+resources/indexed/hm.entity.AbstractEntity/_i.si
+resources/indexed/hm.entity.AbstractEntity/_i.nvm
+resources/indexed/hm.entity.AbstractEntity/_i.nvd
+resources/indexed/hm.entity.AbstractEntity/_i.fnm
+resources/indexed/hm.entity.AbstractEntity/_i.fdx
+resources/indexed/hm.entity.AbstractEntity/_i.fdt
+resources/indexed/hm.entity.AbstractEntity/_d.cfs
+resources/indexed/hm.entity.AbstractEntity/_c_Lucene50_0.tim
+resources/indexed/hm.entity.AbstractEntity/_c_Lucene50_0.pos
+resources/indexed/hm.entity.AbstractEntity/_c_Lucene50_0.doc
+resources/indexed/hm.entity.AbstractEntity/_c.nvd
+resources/indexed/hm.entity.AbstractEntity/_c.fdt

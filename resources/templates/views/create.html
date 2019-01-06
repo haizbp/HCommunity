@@ -44,7 +44,7 @@
                 </div>
 				<div class="create__section">
 					<label class="create__label" for="tags">Add tags</label>
-                    <input v-model="model.tags" type="text" class="form-control" id="tags" placeholder="e.g. nature, science">
+                    <input v-model="model.tag" v-on:keyup.enter="addTag" type="text" class="form-control" id="tags" placeholder="e.g. nature, science">
                 </div>
 				<div class="create__section">
 					<label class="create__label" for="tags">Add categories</label>

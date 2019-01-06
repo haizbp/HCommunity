@@ -65,6 +65,9 @@ $( document ).ajaxStop(function() {
 });
 
 const Func = {
+	randomColor: function(){
+		return COLOR[Math.floor(Math.random()*COLOR.length)];
+	},
 	scrollTo: function(e, delay){
 		$([document.documentElement, document.body]).animate({
 			scrollTop: ($(e).offset().top )

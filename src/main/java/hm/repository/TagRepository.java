@@ -12,5 +12,6 @@ import hm.entity.UserEntity;
 public interface TagRepository extends JpaRepository<TagEntity, Long> {
 
 	List<TagEntity> findAllByDisableIsFalse();
+	TagEntity findByKeyOrValue(String Key, String value);
 	
 }

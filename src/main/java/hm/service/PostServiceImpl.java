@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -26,6 +27,7 @@ import hm.model.UserPostActivityModel;
 import hm.repository.CategoryPostRepository;
 import hm.repository.PostRepository;
 import hm.repository.TagPostRepository;
+import hm.repository.TagRepository;
 import hm.repository.UserPostRepository;
 import hm.repository.UserRepository;
 
@@ -46,6 +48,8 @@ public class PostServiceImpl implements PostService {
 	private HibernateSearchService hibernateSearchService;
 	@Autowired
 	private UserPostRepository userPostRepository;
+	@Autowired
+	private TagRepository tagRepository;
 
 	@Override
 	@Cacheable(value = "SystemCache", key = "#root.target.POST_LIST_CACHE_KEY+':'+#page")
@@ -120,14 +124,23 @@ public class PostServiceImpl implements PostService {
 			model = PostModel.from(entity);
 
 			TagPostEntity tagPostEntity;
-			for (TagModel tagPost : target.getTags()) {
+			TagEntity tagEntity;
+			Set<TagModel> tagModels = target.getTags();
+			target.setTags(null);
+			for (TagModel tagPost : tagModels) {
+				tagEntity = tagRepository.findByKeyOrValue(tagPost.getKey(), tagPost.getValue());
+				
+				if(tagEntity == null) {
+					tagEntity = tagRepository.save(TagEntity.from(tagPost));
+				}
+				
 				tagPostEntity = new TagPostEntity();
 				tagPostEntity.setPost(entity);
-				tagPostEntity.setTag(TagEntity.from(tagPost));
+				tagPostEntity.setTag(tagEntity);
 
 				tagPostRepository.save(tagPostEntity);
+				model.addTag(TagModel.from(tagEntity));
 			}
-			model.setTags(target.getTags());
 
 			CategoryPostEntity categoryPostEntity;
 			for (CategoryModel categoryPostModel : target.getCategories()) {

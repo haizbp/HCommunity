@@ -119,8 +119,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="posts__category" v-for="cat in post.categories">
-                                <a :href="cat.value" class="category">
+                            <div class="posts__category">
+                                <a v-for="cat in post.categories" :href="cat.value" class="category">
                                 <i :class="cat.color"></i>{{cat.key}}
                                 </a>
                             </div>

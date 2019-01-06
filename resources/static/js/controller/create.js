@@ -5,7 +5,8 @@ SCREEN_APP.createVue = new Vue({
 			title: '',
 			content: '',
 			bColor: '',
-			tags: '',
+			tag: '',
+			tags: [],
 			categories: []
 		},
 		categories: []
@@ -41,8 +42,28 @@ SCREEN_APP.createVue = new Vue({
 			}
 			
 		},
+		addTag: function(){
+			var self = this;
+			
+			self.model.tags.push({
+			      "color": Func.randomColor(),
+			      "value": self.model.tag,
+			      "key": self.model.tag
+			    });
+			
+			self.model.tag = '';
+		},
 		doSubmit: function(searchVal){
 			var self = this;
+			
+			if(self.model.tag !== ''){
+				self.model.tags.push({
+				      "color": Func.randomColor(),
+				      "value": self.model.tag,
+				      "key": self.model.tag
+				    });
+				self.model.tag = '';
+			}
 			
 			self.model.bColor = COLOR[Math.floor(Math.random()*COLOR.length)];
 			Func.addTopic(self.model, function(data){
